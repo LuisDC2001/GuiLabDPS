@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 export const Headers=({
     allProducts,
@@ -10,23 +11,50 @@ export const Headers=({
     setTotal,
 })=>{
     const [active,setActive]=useState(false);
-    
     const onDeleteProduct=product=>{
-        const results=allProducts.filter(
-            item=>item.id !== product.id
-        );
-
-        setTotal(total-product.price*product.quantity);
-        setCountProducts(countProducts-product.quantity);
-        setAllProducts(results);
-    };
+        Swal.fire({
+            title:'Aviso',
+            text: 'Está seguro que desea eliminar este registro',
+            icon:'error',
+            showDenyButton: true,
+            denyButtonText:'No',
+            confirmButtonText:'Si'
+        }).then((result)=>{
+            if(result.isConfirmed){
+                Swal.fire('Libro eliminado','','success')
+                const results=allProducts.filter(
+                    item=>item.id !== product.id
+                );
+                setTotal(total-product.price*product.quantity);
+                setCountProducts(countProducts-product.quantity);
+                setAllProducts(results);
+            }
+            else if (result.isDenied){
+                Swal.fire('No se eliminó el libro','','info')
+            }
+        })
+        };
 
     const onCleanCart=()=>{
-        setAllProducts([]);
-        setTotal(0);
-        setCountProducts(0);
+        Swal.fire({
+            title:'Aviso',
+            text: 'Está seguro que desea eliminar los registros',
+            icon:'error',
+            showDenyButton: true,
+            denyButtonText:'No',
+            confirmButtonText:'Si'
+        }).then((result)=>{
+            if(result.isConfirmed){
+                Swal.fire('Se ha vaciado el carrito de compras','','success')
+                setAllProducts([]);
+                setTotal(0);
+                setCountProducts(0);   
+            }
+            else if (result.isDenied){
+                Swal.fire('Se ha cancelado la acción','','info')
+            }
+        })
     };
-
     return(
         <header>
             <h1>Tienda de Libros</h1>
@@ -46,6 +74,7 @@ export const Headers=({
                                 <div className="cart-product" key={product.id}>
                                     <div className="info-cart-product">
                                         <span className="cantidad-producto-carrito">{product.quantity}</span>
+                                        <img className="imagen-producto-carrito" src={product.urlImage} alt="imagen-producto"/>
                                         <p className="titulo-producto-carrtio">{product.title}</p>
                                         <span className="precio-producto-carrito">${product.price}</span>
                                     </div>
@@ -68,5 +97,7 @@ export const Headers=({
                     )}
                 </div>
             </div>
-        </header> );
-};
+        </header>);
+        
+    };
+                  
