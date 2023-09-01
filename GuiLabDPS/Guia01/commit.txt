@@ -1,0 +1,39 @@
+const precioPorMes = 25;
+  let descuento = 0;
+  let porcentajeDescuento = 0;
+
+  if (cantidadMeses >= 2 && cantidadMeses <= 3) {
+    descuento = precioPorMes * cantidadMeses * 0.1;
+    porcentajeDescuento = 10;
+  } else if (cantidadMeses >= 4 && cantidadMeses <= 5) {
+    descuento = precioPorMes * cantidadMeses * 0.2;
+    porcentajeDescuento = 20;
+  } else if (cantidadMeses >= 6 && cantidadMeses <= 7) {
+    descuento = precioPorMes * cantidadMeses * 0.27;
+    porcentajeDescuento = 27;
+  } else if (cantidadMeses >= 8 && cantidadMeses <= 9) {
+    descuento = precioPorMes * cantidadMeses * 0.37;
+    porcentajeDescuento = 37;
+  } else if (cantidadMeses >= 10) {
+    descuento = precioPorMes * cantidadMeses * 0.53;
+    porcentajeDescuento = 53;
+  }
+
+  const totalAPagar = precioPorMes * cantidadMeses - descuento;
+
+
+
+
+
+form 
+ <div>
+      <h2>Resumen de la Inscripción</h2>
+      <p>Nombre del Cliente: {nombre}</p>
+      <p>Apellido del Cliente: {apellido}</p>
+      <p>Tipo de Curso: {curso}</p>
+      <p>Cantidad de Meses a Pagar: {cantidadMeses}</p>
+      <p>Descuento Calculado: ${descuento.toFixed(2)}</p>
+      <p>Porcentaje de Descuento: {porcentajeDescuento}%</p>
+      <p>Total a Pagar: ${totalAPagar.toFixed(2)}</p>
+    </div>
+        </div>
